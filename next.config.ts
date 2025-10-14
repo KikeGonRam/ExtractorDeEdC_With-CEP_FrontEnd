@@ -1,7 +1,7 @@
 export default {
   async rewrites() {
     return [
-      { source: "/api/:path*", destination: "http://127.0.0.1:8000/:path*" },
+      { source: "/api/:path*", destination: "http://46.202.177.106:8000/:path*" }, // Cambia la IP por la de tu VPS
     ];
   },
 };
