@@ -7,7 +7,7 @@ export async function GET(
   context: { params: Promise<{ path: string[] }> }
 ) {
   const paramsObj = await context.params;
-  const base = (process.env.API_BASE_INTERNAL || 'http://127.0.0.1:8000').replace(/\/+$/,'');
+  const base = (process.env.API_BASE_INTERNAL || 'http://46.202.177.106:8000').replace(/\/+$/,'');
   const urlIn = new URL(req.url);
   const target = `${base}/${paramsObj.path.join('/')}${urlIn.search}`; // p.ej. /solicitudes?...
   // proxy transparente
