@@ -1,0 +1,63 @@
+/* app/globals.css — Tailwind v4 */
+@import "tailwindcss";
+
+/* Tokens/tema para utilidades personalizadas */
+@theme {
+  /* paleta de “brand” usada por botones, etc. */
+  --color-brand-50:  #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6; /* azul principal */
+  --color-brand-600: #2563eb; /* hover */
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+
+  /* sombra personalizada para tarjetas */
+  --shadow-card: 0 18px 50px rgba(2,6,23,.22), 0 3px 10px rgba(2,6,23,.15);
+
+  /* alias opcional si en algún lugar usas “slate-100” */
+  --color-slate-100: var(--color-zinc-100);
+}
+
+/* Gradiente de fondo */
+:root {
+  --bg-start: #0f1b8f; /* deep blue */
+  --bg-mid:   #1630cc; /* royal */
+  --bg-end:   #0b7bff; /* cyan-blue */
+}
+
+html, body, #__next { height: 100%; }
+
+body {
+  @apply text-zinc-100 antialiased;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 60%),
+    radial-gradient(1000px 700px at 90% -20%, rgba(59,130,246,.15) 0%, rgba(59,130,246,0) 70%),
+    linear-gradient(135deg, var(--bg-start), var(--bg-mid) 55%, var(--bg-end));
+}
+
+/* Helpers de UI (utilizan las utilidades de Tailwind) */
+.container-page { @apply mx-auto max-w-6xl px-5 py-10; }
+.card          { @apply bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl shadow-card; }
+.card-inner    { @apply p-5 md:p-7; }
+.card-title    { @apply text-white font-semibold text-lg; }
+
+.btn        { @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition; }
+.btn-primary{ @apply bg-brand-500 hover:bg-brand-600 text-white; }
+.btn-ghost  { @apply bg-white/10 hover:bg-white/20 text-white; }
+.btn-success{ @apply bg-green-500 hover:bg-green-600 text-white; }
+
+.badge        { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+.badge-green  { @apply bg-emerald-500/20 text-emerald-200 border border-emerald-400/20; }
+.badge-red    { @apply bg-red-500/20 text-red-200 border border-red-400/20; }
+.badge-slate  { @apply bg-white/10 text-white border border-white/10; }
+
+.input   { @apply w-full rounded-lg bg-white/10 border border-white/10 text-white placeholder-white/60 px-3 py-2 outline-none focus:ring-2 focus:ring-white/30; }
+.select  { @apply bg-white/10 border border-white/10 text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-white/30; }
+.table   { @apply w-full text-sm; }
+.table th{ @apply text-white/70 font-medium text-xs uppercase tracking-wide py-3; }
+.table td{ @apply text-white/90 py-3; }
+.table tr{ @apply border-b border-white/10; }
