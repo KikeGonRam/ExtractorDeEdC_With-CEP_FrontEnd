@@ -178,6 +178,54 @@ export default function Page() {
 
   return (
     <main className="min-h-[100svh] w-full bg-gradient-to-b from-[#0a2ad3] via-[#1741d8] to-[#1b4ee0] text-white/90">
+      {/* Previsualización PDF y descarga */}
+      {previewUrl && (
+        <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-white/15">
+          <div className="flex items-center justify-between bg-white/10 px-4 py-2 text-sm text-white/90">
+            <span className="truncate">{file?.name}</span>
+            <div className="flex gap-4">
+              <a
+                href={previewUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-white/50 underline-offset-4 hover:decoration-white"
+              >
+                Abrir en pestaña nueva
+              </a>
+              <a
+                href={previewUrl}
+                download={file?.name}
+                className="underline decoration-white/50 underline-offset-4 hover:decoration-white"
+              >
+                Descargar PDF
+              </a>
+            </div>
+          </div>
+          <div className="px-4 py-2 text-xs text-yellow-200 bg-yellow-700/40 rounded-b-xl">
+            ⚠ Si el PDF no se muestra, verifica que el archivo tenga contenido y sea válido. Para abrirlo en una pestaña nueva, espera a que el selector de archivos se cierre antes de hacer clic en el enlace. Si el navegador bloquea la visualización, prueba con Chrome, Edge o Firefox.
+          </div>
+          <div className="h-[360px] w-full bg-white/5 flex items-center justify-center">
+            <iframe
+              src={previewUrl}
+              className="h-full w-full"
+              title="PDF Preview"
+              frameBorder="0"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                const msg = document.createElement('div');
+                msg.textContent = 'No se puede mostrar la previsualización. Descarga el PDF para verificar.';
+                msg.style.color = '#fff';
+                msg.style.textAlign = 'center';
+                msg.style.padding = '2rem';
+                e.currentTarget.parentNode?.appendChild(msg);
+              }}
+            />
+            <noscript>
+              <p className="text-center text-white/80">No se puede mostrar la previsualización. Abre el PDF en una pestaña nueva.</p>
+            </noscript>
+          </div>
+        </div>
+      )}
       <div className="mx-auto max-w-6xl px-6 pb-24 pt-12">
         {/* Header */}
         <header className="mb-8">
