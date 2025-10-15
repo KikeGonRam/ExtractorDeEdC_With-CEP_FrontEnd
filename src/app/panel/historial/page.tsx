@@ -16,8 +16,8 @@ import {
 const runtimeApiBase = () => {
   const env = process.env.NEXT_PUBLIC_API_BASE;
   if (env && env.trim()) return env.trim();
-  // IP fija del VPS
-  return 'http://46.202.177.106:8000';
+  // Usar proxy HTTPS de Nginx para evitar Mixed Content
+  return '/extractor-api';
 };
 const API_BASE = runtimeApiBase();
 /* ================================================ */
