@@ -270,8 +270,8 @@ export default function Page() {
         </a>
       </div>
       <div className="h-[360px] w-full bg-white/5 flex items-center justify-center">
-        <embed src={previewUrl} type="application/pdf" className="h-full w-full" />
-        {/* Mensaje alternativo si el navegador no soporta <embed> para PDF */}
+        <iframe src={previewUrl} className="h-full w-full" title="PDF Preview" frameBorder="0" />
+        {/* Mensaje alternativo si el navegador no soporta <iframe> para PDF */}
         <noscript>
           <p className="text-center text-white/80">No se puede mostrar la previsualización. Abre el PDF en una pestaña nueva.</p>
         </noscript>
