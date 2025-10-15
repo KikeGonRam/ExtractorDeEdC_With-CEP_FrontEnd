@@ -269,6 +269,9 @@ export default function Page() {
           Abrir en pestaña nueva
         </a>
       </div>
+      <div className="px-4 py-2 text-xs text-yellow-200 bg-yellow-700/40 rounded-b-xl">
+        ⚠ Si el PDF no se muestra, verifica que el archivo tenga contenido y sea válido. Para abrirlo en una pestaña nueva, espera a que el selector de archivos se cierre antes de hacer clic en el enlace. Si el navegador bloquea la visualización, prueba con Chrome, Edge o Firefox.
+      </div>
       <div className="h-[360px] w-full bg-white/5 flex items-center justify-center">
         <iframe src={previewUrl} className="h-full w-full" title="PDF Preview" frameBorder="0" />
         {/* Mensaje alternativo si el navegador no soporta <iframe> para PDF */}
