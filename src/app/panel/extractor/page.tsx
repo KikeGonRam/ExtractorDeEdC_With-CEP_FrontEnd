@@ -259,21 +259,25 @@ export default function Page() {
   {previewUrl && (
     <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-white/15">
       <div className="flex items-center justify-between bg-white/10 px-4 py-2 text-sm text-white/90">
-                  <span className="truncate">{file?.name}</span>
-                  <a
-                    href={previewUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-white/50 underline-offset-4 hover:decoration-white"
-                  >
-                    Abrir en pestaña nueva
-                  </a>
-                </div>
-                <div className="h-[360px] w-full bg-white">
-                  <embed src={previewUrl} type="application/pdf" className="h-full w-full" />
-                </div>
-              </div>
-            )}
+        <span className="truncate">{file?.name}</span>
+        <a
+          href={previewUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="underline decoration-white/50 underline-offset-4 hover:decoration-white"
+        >
+          Abrir en pestaña nueva
+        </a>
+      </div>
+      <div className="h-[360px] w-full bg-white/5 flex items-center justify-center">
+        <embed src={previewUrl} type="application/pdf" className="h-full w-full" />
+        {/* Mensaje alternativo si el navegador no soporta <embed> para PDF */}
+        <noscript>
+          <p className="text-center text-white/80">No se puede mostrar la previsualización. Abre el PDF en una pestaña nueva.</p>
+        </noscript>
+      </div>
+    </div>
+  )}
           </div>
 
           {/* Tarjetas de acciones */}
