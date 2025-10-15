@@ -198,89 +198,52 @@ export default function Page() {
 
           {/* Zona de carga / drag & drop */}
             <div
-            className={[
-                "rounded-xl border border-dashed p-4 transition",
-                dragging
-                ? "border-white/70 bg-white/20"
-                : "border-white/25 bg-white/5 hover:border-white/40 hover:bg-white/10",
-                ].join(" ")}
-                onDragOver={onDragOver}
-                onDragEnter={onDragEnter}
-                onDragLeave={onDragLeave}
-                onDrop={onDrop}
-                onClick={() => inputRef.current?.click()}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
-                }}
->
-                <div className="flex items-center justify-between gap-4">
+              className={["rounded-xl border border-dashed p-4 transition",
+                dragging ? "border-white/70 bg-white/20" : "border-white/25 bg-white/5",
+              ].join(" ")}
+              onDragOver={onDragOver}
+              onDragEnter={onDragEnter}
+              onDragLeave={onDragLeave}
+              onDrop={onDrop}
+            >
+              <div className="flex items-center justify-between gap-4">
                 <div className="flex min-h-[56px] flex-1 items-center gap-3 rounded-lg border border-white/15 bg-white/5 px-4">
-                <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/15">📄</div>
-                    <div className="min-w-0">
-                        <p className="text-sm text-white/75">
-                        {file ? (
+                  <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/15">📄</div>
+                  <div className="min-w-0">
+                    <p className="text-sm text-white/75">
+                      {file ? (
                         <>
-                        <span className="font-medium">{file.name}</span>{" "}
-                        <span className="text-white/60">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                          <span className="font-medium">{file.name}</span>{" "}
+                          <span className="text-white/60">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
                         </>
-                        ) : dragging ? (
+                      ) : dragging ? (
                         <span>Suelta el PDF aquí…</span>
-                    ) : (
+                      ) : (
                         <span>Selecciona o arrastra tu archivo PDF</span>
-                    )}
+                      )}
                     </p>
+                  </div>
                 </div>
-                </div>
-
-                {/* ⬇⬇ Detenemos burbujeo aquí */}
-                <label className="relative inline-flex" onClick={(e) => e.stopPropagation()}>
-                    <input
-                        ref={inputRef}
-                        type="file"
-                    accept="application/pdf"
-                    className="peer absolute inset-0 h-full w-full cursor-pointer opacity-0"
-                    onClick={(e) => e.stopPropagation()}
-                    onChange={(e) => {
+                <button
+                  type="button"
+                  onClick={() => inputRef.current?.click()}
+                  className="inline-flex h-11 items-center justify-center rounded-lg bg-white/95 px-4 text-sm font-semibold text-slate-800 shadow-sm ring-1 ring-white/40 transition hover:bg-white"
+                >
+                  Seleccionar archivo
+                </button>
+                <input
+                  ref={inputRef}
+                  type="file"
+                  accept="application/pdf"
+                  className="hidden"
+                  onChange={(e) => {
                     const f = e.target.files?.[0];
                     onPickFile(f ?? undefined);
-                    // permitir volver a elegir el mismo archivo
                     (e.target as HTMLInputElement).value = "";
-                    }}
-                    />
-                    <span className="inline-flex h-11 items-center justify-center rounded-lg bg-white/95 px-4 text-sm font-semibold text-slate-800 shadow-sm ring-1 ring-white/40 transition hover:bg-white">
-                    Seleccionar archivo
-                </span>
-                </label>
-            </div>
-            {/* Vista previa del PDF */}
-            {previewUrl && (
-              <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-white/15">
-                <div className="flex items-center justify-between bg-white/10 px-4 py-2 text-sm text-white/90">
-                  <span className="truncate">{file?.name}</span>
-                  <a
-                    href={previewUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-white/50 underline-offset-4 hover:decoration-white"
-                  >
-                    Abrir en pestaña nueva
-                  </a>
-                </div>
-                <div className="h-[360px] w-full bg-white/5">
-                  <iframe 
-                    src={`${previewUrl}#view=FitH`} 
-                    className="h-full w-full border-0" 
-                    title="PDF Preview"
-                  />
-                </div>
-                <div className="px-4 py-2 text-xs text-yellow-200 bg-yellow-700/40">
-                  ⚠ Si el PDF no se muestra, verifica que el archivo sea válido. Algunos navegadores bloquean la visualización de PDFs en iframes. Prueba abrirlo en una pestaña nueva o usa Chrome/Edge/Firefox.
-                </div>
+                  }}
+                />
               </div>
-            )}
-          </div>
+            </div>
 
           {/* Tarjetas de acciones */}
           <div className="mt-6 grid gap-6 md:grid-cols-2">
