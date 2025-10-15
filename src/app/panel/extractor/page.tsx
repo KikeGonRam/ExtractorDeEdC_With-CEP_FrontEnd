@@ -254,33 +254,32 @@ export default function Page() {
                 </span>
                 </label>
             </div>
-
-  {/* Vista previa del PDF */}
-  {previewUrl && (
-    <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-white/15">
-      <div className="flex items-center justify-between bg-white/10 px-4 py-2 text-sm text-white/90">
-        <span className="truncate">{file?.name}</span>
-        <a
-          href={previewUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="underline decoration-white/50 underline-offset-4 hover:decoration-white"
-        >
-          Abrir en pestaña nueva
-        </a>
-      </div>
-      <div className="px-4 py-2 text-xs text-yellow-200 bg-yellow-700/40 rounded-b-xl">
-        ⚠ Si el PDF no se muestra, verifica que el archivo tenga contenido y sea válido. Para abrirlo en una pestaña nueva, espera a que el selector de archivos se cierre antes de hacer clic en el enlace. Si el navegador bloquea la visualización, prueba con Chrome, Edge o Firefox.
-      </div>
-      <div className="h-[360px] w-full bg-white/5 flex items-center justify-center">
-        <iframe src={previewUrl} className="h-full w-full" title="PDF Preview" frameBorder="0" />
-        {/* Mensaje alternativo si el navegador no soporta <iframe> para PDF */}
-        <noscript>
-          <p className="text-center text-white/80">No se puede mostrar la previsualización. Abre el PDF en una pestaña nueva.</p>
-        </noscript>
-      </div>
-    </div>
-  )}
+            {/* Vista previa del PDF */}
+            {previewUrl && (
+              <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-white/15">
+                <div className="flex items-center justify-between bg-white/10 px-4 py-2 text-sm text-white/90">
+                  <span className="truncate">{file?.name}</span>
+                  <a
+                    href={previewUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-white/50 underline-offset-4 hover:decoration-white"
+                  >
+                    Abrir en pestaña nueva
+                  </a>
+                </div>
+                <div className="h-[360px] w-full bg-white/5">
+                  <iframe 
+                    src={`${previewUrl}#view=FitH`} 
+                    className="h-full w-full border-0" 
+                    title="PDF Preview"
+                  />
+                </div>
+                <div className="px-4 py-2 text-xs text-yellow-200 bg-yellow-700/40">
+                  ⚠ Si el PDF no se muestra, verifica que el archivo sea válido. Algunos navegadores bloquean la visualización de PDFs en iframes. Prueba abrirlo en una pestaña nueva o usa Chrome/Edge/Firefox.
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Tarjetas de acciones */}
