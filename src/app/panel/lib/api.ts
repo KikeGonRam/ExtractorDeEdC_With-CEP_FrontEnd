@@ -21,7 +21,16 @@ async function postForm(url: string, file: File) {
   const fd = new FormData();
   fd.append("file", file);
 
-  const res = await fetch(url, { method: "POST", body: fd });
+  // Obtén el token JWT desde localStorage
+  const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
+  const headers: Record<string, string> = {};
+  if (token) {
+    headers["auth_token"] = token;
+    // Si prefieres usar Authorization:
+    // headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const res = await fetch(url, { method: "POST", body: fd, headers });
   if (!res.ok) {
     // Intenta leer error de FastAPI
     try {
