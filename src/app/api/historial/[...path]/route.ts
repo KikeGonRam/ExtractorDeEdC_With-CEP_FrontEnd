@@ -7,7 +7,9 @@ export async function GET(
   context: { params: Promise<{ path: string[] }> }
 ) {
   const paramsObj = await context.params;
-  const base = (process.env.API_BASE_INTERNAL || 'http://46.202.177.106:8000').replace(/\/+$/,'');
+  // Use internal API base from env when available; otherwise use the nginx-proxied
+  // relative path so browser requests stay on the same origin (HTTPS).
+  const base = (process.env.API_BASE_INTERNAL || '/extractor-api').replace(/\/+$/,'');
   const urlIn = new URL(req.url);
   const target = `${base}/${paramsObj.path.join('/')}${urlIn.search}`; // p.ej. /solicitudes?...
   // proxy transparente

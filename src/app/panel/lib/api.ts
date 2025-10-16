@@ -3,7 +3,9 @@ export type Bank = "bbva" | "banorte" | "santander" | "inbursa";
 
 /** URL base del backend. Si no hay .env.local toma 127.0.0.1:8000 */
 function apiBase() {
-  return process.env.NEXT_PUBLIC_API_BASE ?? "http://46.202.177.106:8000";
+  // Prefer an environment variable, otherwise use nginx-proxied relative path
+  // so the browser keeps the same origin (HTTPS) and nginx forwards to the backend.
+  return process.env.NEXT_PUBLIC_API_BASE ?? "/extractor-api";
 }
 
 /** Arma el endpoint para cada banco */
