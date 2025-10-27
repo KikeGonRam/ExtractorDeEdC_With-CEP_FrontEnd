@@ -27,9 +27,11 @@ async function postForm(url: string, file: File) {
   const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
   const headers: Record<string, string> = {};
   if (token) {
+    // Mantener compatibilidad con la versión actual (cabecera personalizada)
     headers["auth_token"] = token;
-    // Si prefieres usar Authorization:
-    // headers["Authorization"] = `Bearer ${token}`;
+    // Además enviar la cabecera estándar Authorization para evitar que proxies
+    // (p.ej. nginx con configuración por defecto) filtren headers con _
+    headers["Authorization"] = `Bearer ${token}`;
   }
 
   const res = await fetch(url, { method: "POST", body: fd, headers });
