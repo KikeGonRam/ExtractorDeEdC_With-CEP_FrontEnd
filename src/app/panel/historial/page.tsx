@@ -84,10 +84,15 @@ export default function HistorialPage() {
     const loadOnce = async () => {
       setLoading(true);
       try {
-        // sube este número si lo necesitas
         const page_size = 1000;
         const url = `${API_BASE}/solicitudes?page=1&page_size=${page_size}`;
-        const res = await fetch(url, { cache: 'no-store' });
+        // Obtener token de localStorage
+        const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
+        const headers: Record<string, string> = {};
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+        const res = await fetch(url, { cache: 'no-store', headers });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const j: ExtraccionesResponse = await res.json();
         setAllItems(j.items || []);
